@@ -23,7 +23,7 @@ public class PrecalentadoController {
 	@Autowired
 	private UsuarioService servicio;
 	
-	//Login
+
 	@GetMapping("/precalentado")
 	public String precalentado() {	
 		Jedis jedis = new Jedis();
