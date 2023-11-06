@@ -1,31 +1,29 @@
-package com.centroinformacion.controller;
+package com.centroinformacion.service;
 
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.stereotype.Controller;
-import org.springframework.web.bind.annotation.GetMapping;
-
+import org.springframework.stereotype.Service;
 import com.centroinformacion.entity.Opcion;
 import com.centroinformacion.entity.Rol;
 import com.centroinformacion.entity.Usuario;
-import com.centroinformacion.service.UsuarioService;
 import com.google.gson.Gson;
 
+import jakarta.annotation.PostConstruct;
 import redis.clients.jedis.Jedis;
 
 
-@Controller
-public class PrecalentadoController {
+@Service
+public class PrecalentadoService {
 
 	@Autowired
 	private UsuarioService servicio;
 	
 
-	@GetMapping("/precalentado")
-	public String precalentado() {	
+	@PostConstruct
+	public void cargarCache() {	
 		Jedis jedis = new Jedis();
 		Gson gson = new Gson();
 		
@@ -58,7 +56,6 @@ public class PrecalentadoController {
 		jedis.hset("menus", mapsMenus);
 		jedis.close();
 		
-		return "intranetHome";  
 	}
 	
 
